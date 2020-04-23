@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.wf.fac.mapper.FacMapper" >
+    <resultMap id="BaseResultMap" type="edu.wf.fac.model.Fac" >
+        <id column="fac_id" property="fac_id" jdbcType="INTEGER" />
+        <result column="fac_name" property="fac_name" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="fac_columns" >
+        fac_id, fac_name
+    </sql>
+    <select id="load" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="fac_columns" />
+        from fac
+        where fac_id = #{fac_id,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer" >
+        delete from fac
+        where fac_id = #{fac_id,jdbcType=INTEGER}
+    </delete>
+    <insert id="add" parameterType="edu.wf.fac.model.Fac" >
+        insert into fac
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="fac_id != null" >
+                fac_id,
+            </if>
+            <if test="fac_name != null" >
+                fac_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="fac_id != null" >
+                #{fac_id,jdbcType=INTEGER},
+            </if>
+            <if test="fac_name != null" >
+                #{fac_name,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="edu.wf.fac.model.Fac" >
+        update fac
+        <set >
+            <if test="fac_name != null" >
+                fac_name = #{fac_name,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where fac_id = #{fac_id,jdbcType=INTEGER}
+    </update>
+    <select id="facList" parameterType="map" resultMap="BaseResultMap">
+        select * from fac
+        <where>
+        	 <if test="fac.fac_name!=null and fac.fac_name!=''">
+                and fac_name like concat('%',#{fac.fac_name},'%')
+            </if>
+        </where>
+         limit #{begins},#{num}
+    </select>
+    <select id="count" parameterType="map" resultType="integer">
+        select count(*) from fac 
+        <where>
+        	 <if test="fac.fac_name!=null and fac.fac_name!=''">
+                and fac_name like concat('%',#{fac.fac_name},'%')
+            </if>
+        </where>
+    </select>
+    <select id="facListAll" resultMap="BaseResultMap">
+        select * from fac
+    </select>
+</mapper>

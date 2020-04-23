@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.wf.teams.mapper.TeamsMapper" >
+    <resultMap id="BaseResultMap" type="edu.wf.teams.model.Teams" >
+        <id column="teams_id" property="teams_id" jdbcType="INTEGER" />
+        <result column="teams_name" property="teams_name" jdbcType="VARCHAR" />
+        <result column="teams_gen" property="teams_gen" jdbcType="LONGVARCHAR" />
+        <result column="teams_feat" property="teams_feat" jdbcType="LONGVARCHAR" />
+        <result column="teams_spot" property="teams_spot" jdbcType="LONGVARCHAR" />
+        <result column="teams_logo" property="teams_logo" jdbcType="VARCHAR" />
+        <result column="teams_cost" property="teams_cost" jdbcType="LONGVARCHAR" />
+        <result column="teams_price" property="teams_price" jdbcType="INTEGER" />
+        <result column="teams_message" property="teams_message" jdbcType="LONGVARCHAR" />
+        <result column="teams_child" property="teams_child" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="teams_columns" >
+        teams_id, teams_name, teams_gen, teams_feat, teams_spot, teams_logo, teams_cost, 
+        teams_price, teams_message, teams_child
+    </sql>
+    <select id="load" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="teams_columns" />
+        from teams
+        where teams_id = #{teams_id,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer" >
+        delete from teams
+        where teams_id = #{teams_id,jdbcType=INTEGER}
+    </delete>
+    <insert id="add" parameterType="edu.wf.teams.model.Teams" >
+        insert into teams
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="teams_id != null" >
+                teams_id,
+            </if>
+            <if test="teams_name != null" >
+                teams_name,
+            </if>
+            <if test="teams_gen != null" >
+                teams_gen,
+            </if>
+            <if test="teams_feat != null" >
+                teams_feat,
+            </if>
+            <if test="teams_spot != null" >
+                teams_spot,
+            </if>
+            <if test="teams_logo != null" >
+                teams_logo,
+            </if>
+            <if test="teams_cost != null" >
+                teams_cost,
+            </if>
+            <if test="teams_price != null" >
+                teams_price,
+            </if>
+            <if test="teams_message != null" >
+                teams_message,
+            </if>
+            <if test="teams_child != null" >
+                teams_child,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="teams_id != null" >
+                #{teams_id,jdbcType=INTEGER},
+            </if>
+            <if test="teams_name != null" >
+                #{teams_name,jdbcType=VARCHAR},
+            </if>
+            <if test="teams_gen != null" >
+                #{teams_gen,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="teams_feat != null" >
+                #{teams_feat,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="teams_spot != null" >
+                #{teams_spot,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="teams_logo != null" >
+                #{teams_logo,jdbcType=VARCHAR},
+            </if>
+            <if test="teams_cost != null" >
+                #{teams_cost,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="teams_price != null" >
+                #{teams_price,jdbcType=INTEGER},
+            </if>
+            <if test="teams_message != null" >
+                #{teams_message,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="teams_child != null" >
+                #{teams_child,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="edu.wf.teams.model.Teams" >
+        update teams
+        <set >
+            <if test="teams_name != null" >
+                teams_name = #{teams_name,jdbcType=VARCHAR},
+            </if>
+            <if test="teams_gen != null" >
+                teams_gen = #{teams_gen,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="teams_feat != null" >
+                teams_feat = #{teams_feat,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="teams_spot != null" >
+                teams_spot = #{teams_spot,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="teams_logo != null" >
+                teams_logo = #{teams_logo,jdbcType=VARCHAR},
+            </if>
+            <if test="teams_cost != null" >
+                teams_cost = #{teams_cost,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="teams_price != null" >
+                teams_price = #{teams_price,jdbcType=INTEGER},
+            </if>
+            <if test="teams_message != null" >
+                teams_message = #{teams_message,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="teams_child != null" >
+                teams_child = #{teams_child,jdbcType=INTEGER},
+            </if>
+        </set>
+        where teams_id = #{teams_id,jdbcType=INTEGER}
+    </update>
+    <select id="teamsList" parameterType="map" resultMap="BaseResultMap">
+        select * from teams <where>
+            <if test="teams.teams_name!=null and teams.teams_name!=''">
+                and teams_name like concat('%',#{teams.teams_name},'%')
+            </if>
+        </where>
+         limit #{begins},#{num}
+    </select>
+    <select id="count" parameterType="map" resultType="integer">
+        select count(*) from teams <where> 
+            <if test="teams.teams_name!=null and teams.teams_name!=''">
+                and teams_name like concat('%',#{teams.teams_name},'%')
+            </if>
+        </where>
+    </select>
+    <select id="teamsNewList" resultMap="BaseResultMap">
+    	select * from teams order by teams_id desc limit 0,3
+    </select>
+    <select id="teamsBfList" parameterType="edu.wf.teams.model.Teams" resultMap="BaseResultMap">
+    	select * from teams 
+    	<where> 
+	    	<if test="teams.teams_name!=null and teams.teams_name!=''">
+	            and teams_name like concat('%',#{teams.teams_name},'%')
+	        </if>
+        </where>
+    </select>
+</mapper>

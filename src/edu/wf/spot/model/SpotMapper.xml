@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.wf.spot.mapper.SpotMapper" >
+    <resultMap id="BaseResultMap" type="edu.wf.spot.model.Spot" >
+        <id column="spot_id" property="spot_id" jdbcType="INTEGER" />
+        <result column="spot_name" property="spot_name" jdbcType="VARCHAR" />
+        <result column="spot_addr" property="spot_addr" jdbcType="VARCHAR" />
+        <result column="spot_time" property="spot_time" jdbcType="VARCHAR" />
+        <result column="spot_price" property="spot_price" jdbcType="INTEGER" />
+        <result column="spot_message" property="spot_message" jdbcType="LONGVARCHAR" />
+        <result column="spot_look" property="spot_look" jdbcType="LONGVARCHAR" />
+        <result column="spot_link" property="spot_link" jdbcType="LONGVARCHAR" />
+        <result column="spot_child" property="spot_child" jdbcType="INTEGER" />
+        <result column="spot_logo" property="spot_logo" jdbcType="VARCHAR" />
+        <result column="fk_spotFac_id" property="fk_spotFac_id" jdbcType="INTEGER" />
+    	<association property="fac" column="fk_spotFac_id" select="edu.wf.fac.mapper.FacMapper.load"></association>
+    </resultMap>
+    <sql id="spot_columns" >
+        spot_id, spot_name, spot_addr, spot_time, spot_price, spot_message, spot_look, spot_link, 
+        spot_child, spot_logo, fk_spotFac_id
+    </sql>
+    <select id="load" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="spot_columns" />
+        from spot
+        where spot_id = #{spot_id,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer" >
+        delete from spot
+        where spot_id = #{spot_id,jdbcType=INTEGER}
+    </delete>
+    <insert id="add" parameterType="edu.wf.spot.model.Spot" >
+        insert into spot
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="spot_id != null" >
+                spot_id,
+            </if>
+            <if test="spot_name != null" >
+                spot_name,
+            </if>
+            <if test="spot_addr != null" >
+                spot_addr,
+            </if>
+            <if test="spot_time != null" >
+                spot_time,
+            </if>
+            <if test="spot_price != null" >
+                spot_price,
+            </if>
+            <if test="spot_message != null" >
+                spot_message,
+            </if>
+            <if test="spot_look != null" >
+                spot_look,
+            </if>
+            <if test="spot_link != null" >
+                spot_link,
+            </if>
+            <if test="spot_child != null" >
+                spot_child,
+            </if>
+            <if test="spot_logo != null" >
+                spot_logo,
+            </if>
+            <if test="fk_spotFac_id != null" >
+                fk_spotFac_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="spot_id != null" >
+                #{spot_id,jdbcType=INTEGER},
+            </if>
+            <if test="spot_name != null" >
+                #{spot_name,jdbcType=VARCHAR},
+            </if>
+            <if test="spot_addr != null" >
+                #{spot_addr,jdbcType=VARCHAR},
+            </if>
+            <if test="spot_time != null" >
+                #{spot_time,jdbcType=VARCHAR},
+            </if>
+            <if test="spot_price != null" >
+                #{spot_price,jdbcType=INTEGER},
+            </if>
+            <if test="spot_message != null" >
+                #{spot_message,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="spot_look != null" >
+                #{spot_look,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="spot_link != null" >
+                #{spot_link,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="spot_child != null" >
+                #{spot_child,jdbcType=INTEGER},
+            </if>
+            <if test="spot_logo != null" >
+                #{spot_logo,jdbcType=VARCHAR},
+            </if>
+            <if test="fk_spotFac_id != null" >
+                #{fk_spotFac_id,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="edu.wf.spot.model.Spot" >
+        update spot
+        <set >
+            <if test="spot_name != null" >
+                spot_name = #{spot_name,jdbcType=VARCHAR},
+            </if>
+            <if test="spot_addr != null" >
+                spot_addr = #{spot_addr,jdbcType=VARCHAR},
+            </if>
+            <if test="spot_time != null" >
+                spot_time = #{spot_time,jdbcType=VARCHAR},
+            </if>
+            <if test="spot_price != null" >
+                spot_price = #{spot_price,jdbcType=INTEGER},
+            </if>
+            <if test="spot_message != null" >
+                spot_message = #{spot_message,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="spot_look != null" >
+                spot_look = #{spot_look,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="spot_link != null" >
+                spot_link = #{spot_link,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="spot_child != null" >
+                spot_child = #{spot_child,jdbcType=INTEGER},
+            </if>
+            <if test="spot_logo != null" >
+                spot_logo = #{spot_logo,jdbcType=VARCHAR},
+            </if>
+            <if test="fk_spotFac_id != null" >
+                fk_spotFac_id = #{fk_spotFac_id,jdbcType=INTEGER},
+            </if>
+        </set>
+        where spot_id = #{spot_id,jdbcType=INTEGER}
+    </update>
+    <select id="spotList" parameterType="map" resultMap="BaseResultMap">
+        select * from spot <where>
+            <if test="spot.spot_name!=null and spot.spot_name!=''">
+                and spot_name like concat('%',#{spot.spot_name},'%')
+            </if>
+        </where>
+         limit #{begins},#{num}
+    </select>
+    <select id="count" parameterType="map" resultType="integer">
+        select count(*) from spot <where> 
+            <if test="spot.spot_name!=null and spot.spot_name!=''">
+                and spot_name like concat('%',#{spot.spot_name},'%')
+            </if>
+        </where>
+    </select>
+    <!-- desc是降序，asc是升序 ，limit是限制显示0到3个景点-->
+    <select id="spotNewList" resultMap="BaseResultMap">
+    	select * from spot order by spot_id desc limit 0,3
+    </select>
+    <select id="spotBfList" parameterType="edu.wf.spot.model.Spot" resultMap="BaseResultMap">
+    	select * from spot 
+    	<where>
+    	<if test="spot.spot_name!=null and spot.spot_name!=''">
+            and spot_name like concat('%',#{spot.spot_name},'%')
+        </if>
+        </where>
+    </select>
+    <select id="tuijianList" parameterType="edu.wf.client.model.Client" resultMap="BaseResultMap">
+    	select * from spot where fk_spotFac_id in (${fk_clientFac_id}) limit 0,3
+    </select>
+</mapper>
