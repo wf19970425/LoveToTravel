@@ -135,7 +135,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="copyrights"><a href="http://www.17sucai.com/" >旅游网站</a></div>
 	<!-- tels -->
 	<c:if test="${!(empty sessionScope.client) }">
-	<%-- <div class="tels" style="padding: 0 0;">
+	<div class="tels" style="padding: 0 0;">
 		<div class="container">
 					<h3 style="width: 100%;font-size: 2em;color: #6cbc35;margin: 0;text-align: center;">推荐景点</h3><br/>
 			<c:forEach items="${tuijianList }" var="spot">
@@ -150,10 +150,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</c:forEach>
 			<div class="clearfix"></div>
 		</div>
-	</div> --%>
+	</div>
 	</c:if>
 	
-	<%-- <div class="tels" style="padding: 0 0;">
+	<div class="tels" style="padding: 0 0;">
 		<div class="container">
 					<h3 style="width: 100%;font-size: 2em;color: #6cbc35;margin: 0;text-align: center;">最新景点</h3><br/>
 			<c:forEach items="${spotNewList }" var="spot">
@@ -168,9 +168,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</c:forEach>
 			<div class="clearfix"></div>
 		</div>
-	</div> --%>
+	</div>
 	
-	<%-- <div class="tels" style="padding: 0 0;">
+	<div class="tels" style="padding: 0 0;">
 		
 			<div class="container">
 						<h3 style="width: 100%;font-size: 2em;color: #6cbc35;margin: 0;text-align: center;">最新跟团游</h3><br/>
@@ -186,9 +186,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</c:forEach>
 				<div class="clearfix"></div>
 			</div>
-	</div> --%>
+	</div>
 	<!-- 窗口 -->
-	   <!--  <div class="container" >
+	    <div class="container" >
             <div class="demo">
                 <div id="service">
                     <ul>
@@ -205,7 +205,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <div class="hides" id="p1">
                                         <img src="images/ll04.png">
                                     </div>
-                                    <div class="hides" id="p2"><span style="color:#FFF;font-size:13px">1561030336</span>
+                                    <div class="hides" id="p2"><span style="color:#FFF;font-size:13px">123456789</span>
                                     </div>
                                 </div>
                                 <img src="images/l04.png" width="47" height="49" class="shows" />
@@ -217,7 +217,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <div class="hides" id="p1">
                                         <img src="images/ll05.png">
                                     </div>
-                                    <div class="hides" id="p3"><span style="color:#FFF;font-size:12px">13465637718</span>
+                                    <div class="hides" id="p3"><span style="color:#FFF;font-size:12px">123456789</span>
                                     </div>
                                 </div>
                                 <img src="images/l05.png" width="47" height="49" class="shows" />
@@ -234,7 +234,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </ul>
                 </div>
             </div>
-        </div> -->
+        </div>
 	<div class="footer-bottom">
 			<div class="container">
 				<p>爱旅游网	共建网络安全 共享网络文明      联系电话：111111111</p>

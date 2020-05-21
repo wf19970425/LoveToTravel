@@ -49,7 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- footer -->
 	<div class="footer-bottom">
 			<div class="container">
-				<p>旅游网站	共建网络安全 共享网络文明      联系电话：111111111</p>
+				<p>爱旅游网	共建网络安全 共享网络文明      联系电话：111111111</p>
 			</div>
 		</div>
 	<!-- footer -->

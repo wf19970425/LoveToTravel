@@ -39,8 +39,8 @@ function loginOut() {
 </script>
     <div class="container">
     <div class="logo">
-					<h1><a href="http://localhost:8080/tour1/bf/main">旅游系统网站</a></h1>
-				</div>
+		<img src="/upload/logo.jpg" style="width:260px;height: 70px">
+	</div>
 <nav class="navbar navbar-default" role="navigation">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -54,9 +54,9 @@ function loginOut() {
 						<div style="width:800px;" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
 								<li><a href="bf/main">主页</a></li>
-								<!-- <li><a href="bf/spotList">景点</a></li>
+								<li><a href="bf/spotList">景点</a></li>
 								<li><a href="bf/teamsList">跟团游</a></li>
-								<li><a href="bf/mapList">查询路线</a></li> -->
+								<!-- <li><a href="bf/mapList">查询路线</a></li> -->
 								<c:if test="${!(empty sessionScope.client) }">
 									<li><a href="bf/clientLoad">个人中心</a></li>
 									<li><a href="bf/orspList?fk_orspClient_id=${sessionScope.client.client_id }">景点订单</a></li>
@@ -68,7 +68,7 @@ function loginOut() {
 					</nav>
 					<div  class="search-box">
 					<div style="width: 100px;right: 2em;" id="sb-search" class="sb-search">
-							<!-- <a href="http://localhost:8080/tour1/back/login"><h4>管理员登录</h4></a> -->
+							<a href="http://localhost:8080/tour1/back/login"><h4>管理员登录</h4></a>
 							<c:if test="${empty sessionScope.client }">
 								<a style="float: left;" href="javascript:login()">登录</a>
 								<span style="float: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

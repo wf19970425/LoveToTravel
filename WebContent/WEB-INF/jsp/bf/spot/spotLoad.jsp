@@ -69,8 +69,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<li>单价：${spot.spot_price }</li>
 				<li>特殊票：${spot.spot_child }</li>
 				</ul>
-				<a href=""class="hvr-shutter-in-horizontal">购票</a>
-				<%-- <a href="javascript:void(0)" class="hvr-shutter-in-horizontal" onclick="orspAdd(${spot.spot_id},${spot.spot_price},${spot.spot_child},'${spot.spot_name}')" >购票</a> --%>
+				<a href="javascript:void(0)" class="hvr-shutter-in-horizontal" onclick="orspAdd(${spot.spot_id},${spot.spot_price},${spot.spot_child},'${spot.spot_name}')" >购票</a>
 			</div>
 			<div class="clearfix"> </div>
 			<div class="details-top">
@@ -84,7 +83,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		 </div>
 	</div>
 	<h4 style="margin-left: 200px;"> 评价</h4>
-	<%-- <c:forEach items="${grBfList }" var="gr">
+	<c:forEach items="${grBfList }" var="gr">
 	<div class="details" style="margin-left: 200px;">
 		<div style="float: left;">
 		<img width="100px" height="100px" src="/upload/${gr.gr_pho }">
@@ -96,7 +95,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 	<hr />
-	</c:forEach> --%>
+	</c:forEach>
 	<div class="footer-bottom">
 			<div class="container">
 				<p>爱旅游网	共建网络安全 共享网络文明      联系电话：111111111</p>

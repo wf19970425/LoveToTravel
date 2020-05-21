@@ -62,16 +62,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="col-md-5 details-right">
 				<span><strong>￥ ${teams.teams_price }</strong> ${teams.teams_name }</span>
-				<%-- <li>地址：${teams.teams_addr }</li> --%>
-				<%-- <li>开放时间：${teams.teams_time }</li> --%>
+				<%-- <li>地址：${teams.teams_addr }</li>
+				<li>开放时间：${teams.teams_time }</li> --%>
 				<li>单价：${teams.teams_price }</li>
 				<li>特殊票：${teams.teams_child }</li>
 				<div class="col-md-3 pos">
 				<div class="smt">
-					<a href=""class="hvr-shutter-in-horizontal">购票</a>
-					<%-- <a href="javascript:void(0)" class="hvr-shutter-in-horizontal" onclick="orteAdd(${teams.teams_id},${teams.teams_price},${teams.teams_child},'${teams.teams_name}')" >购票</a> --%>
-				</div>
-				</div>
+							<a href="javascript:void(0)" class="hvr-shutter-in-horizontal" onclick="orteAdd(${teams.teams_id},${teams.teams_price},${teams.teams_child},'${teams.teams_name}')" >购票</a>
+						 </div>
+						 </div>
 			</div>
 			<div class="clearfix"> </div>
 			<div class="details-top">
@@ -88,7 +87,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</p>
 			</div>
 			<h4 style="margin-left: 200px;"> 评价</h4>
-	<%-- <c:forEach items="${grBfList }" var="gr">
+	<c:forEach items="${grBfList }" var="gr">
 	<div class="details" style="margin-left: 200px;">
 		<div style="float: left;">
 		<img width="100px" height="100px" src="/upload/${gr.gr_pho }">
@@ -100,8 +99,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 	<hr />
-	</c:forEach> --%>
-			
+	</c:forEach>
 		 </div>
 	</div>
 	<div class="footer-bottom">
