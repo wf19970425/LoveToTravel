@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.wf.menu.mapper.MenuMapper" >
+    <resultMap id="BaseResultMap" type="edu.wf.menu.model.Menu" >
+        <id column="menu_id" property="menu_id" jdbcType="INTEGER" />
+        <result column="menu_name" property="menu_name" jdbcType="VARCHAR" />
+        <result column="father_menu" property="father_menu" jdbcType="INTEGER" />
+        <result column="menu_url" property="menu_url" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="menu_columns" >
+        menu_id, menu_name, father_menu, menu_url
+    </sql>
+    <select id="load" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="menu_columns" />
+        from menu
+        where menu_id = #{menu_id,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer" >
+        delete from menu
+        where menu_id = #{menu_id,jdbcType=INTEGER}
+    </delete>
+    <insert id="add" parameterType="edu.wf.menu.model.Menu" >
+        insert into menu
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="menu_id != null" >
+                menu_id,
+            </if>
+            <if test="menu_name != null" >
+                menu_name,
+            </if>
+            <if test="father_menu != null" >
+                father_menu,
+            </if>
+            <if test="menu_url != null" >
+                menu_url,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="menu_id != null" >
+                #{menu_id,jdbcType=INTEGER},
+            </if>
+            <if test="menu_name != null" >
+                #{menu_name,jdbcType=VARCHAR},
+            </if>
+            <if test="father_menu != null" >
+                #{father_menu,jdbcType=INTEGER},
+            </if>
+            <if test="menu_url != null" >
+                #{menu_url,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="edu.wf.menu.model.Menu" >
+        update menu
+        <set >
+            <if test="menu_name != null" >
+                menu_name = #{menu_name,jdbcType=VARCHAR},
+            </if>
+            <if test="father_menu != null" >
+                father_menu = #{father_menu,jdbcType=INTEGER},
+            </if>
+            <if test="menu_url != null" >
+                menu_url = #{menu_url,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where menu_id = #{menu_id,jdbcType=INTEGER}
+    </update>
+    <select id="noList" parameterType="integer" resultMap="BaseResultMap">
+        select * from menu where menu_id not in (select fk_rlmMenu_id from rlm where fk_rlmRole_id=#{role_id}) and father_menu is not null
+    </select>
+    <select id="fatherList" resultMap="BaseResultMap">
+    	select * from menu where menu_id in (select father_menu  from menu where menu_id in 
+    	<foreach collection="list" item="menu_id" open="(" close=")" separator=",">
+    		#{menu_id}
+    	</foreach>
+    	 group by father_menu)
+    </select> 
+</mapper>
