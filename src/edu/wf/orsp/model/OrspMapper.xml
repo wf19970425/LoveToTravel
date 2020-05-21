@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.wf.orsp.mapper.OrspMapper" >
+    <resultMap id="BaseResultMap" type="edu.wf.orsp.model.Orsp" >
+        <id column="orsp_id" property="orsp_id" jdbcType="INTEGER" />
+        <result column="fk_orspSpot_id" property="fk_orspSpot_id" jdbcType="INTEGER" />
+        <result column="fk_orspClient_id" property="fk_orspClient_id" jdbcType="INTEGER" />
+        <result column="orsp_money" property="orsp_money" jdbcType="INTEGER" />
+        <result column="orsp_num" property="orsp_num" jdbcType="INTEGER" />
+        <result column="orsp_child" property="orsp_child" jdbcType="INTEGER" />
+        <result column="orsp_date" property="orsp_date" jdbcType="TIMESTAMP" />
+        <result column="orsp_code" property="orsp_code" jdbcType="VARCHAR" />
+        <result column="orsp_tel" property="orsp_tel" jdbcType="VARCHAR" />
+        <result column="orsp_status" property="orsp_status" jdbcType="INTEGER" />
+        <association property="client" column="fk_orspClient_id" select="edu.wf.client.mapper.ClientMapper.load"></association>
+        <association property="spot" column="fk_orspSpot_id" select="edu.wf.spot.mapper.SpotMapper.load"></association>
+    </resultMap>
+    <sql id="orsp_columns" >
+        orsp_id, fk_orspSpot_id, fk_orspClient_id, orsp_money, orsp_num, orsp_child, orsp_date, 
+        orsp_code, orsp_tel, orsp_status
+    </sql>
+    <select id="load" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="orsp_columns" />
+        from orsp
+        where orsp_id = #{orsp_id,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer" >
+        delete from orsp
+        where orsp_id = #{orsp_id,jdbcType=INTEGER}
+    </delete>
+    <insert id="add" parameterType="edu.wf.orsp.model.Orsp" >
+        insert into orsp
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="orsp_id != null" >
+                orsp_id,
+            </if>
+            <if test="fk_orspSpot_id != null" >
+                fk_orspSpot_id,
+            </if>
+            <if test="fk_orspClient_id != null" >
+                fk_orspClient_id,
+            </if>
+            <if test="orsp_money != null" >
+                orsp_money,
+            </if>
+            <if test="orsp_num != null" >
+                orsp_num,
+            </if>
+            <if test="orsp_child != null" >
+                orsp_child,
+            </if>
+            <if test="orsp_date != null" >
+                orsp_date,
+            </if>
+            <if test="orsp_code != null" >
+                orsp_code,
+            </if>
+            <if test="orsp_tel != null" >
+                orsp_tel,
+            </if>
+            <if test="orsp_status != null" >
+                orsp_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="orsp_id != null" >
+                #{orsp_id,jdbcType=INTEGER},
+            </if>
+            <if test="fk_orspSpot_id != null" >
+                #{fk_orspSpot_id,jdbcType=INTEGER},
+            </if>
+            <if test="fk_orspClient_id != null" >
+                #{fk_orspClient_id,jdbcType=INTEGER},
+            </if>
+            <if test="orsp_money != null" >
+                #{orsp_money,jdbcType=INTEGER},
+            </if>
+            <if test="orsp_num != null" >
+                #{orsp_num,jdbcType=INTEGER},
+            </if>
+            <if test="orsp_child != null" >
+                #{orsp_child,jdbcType=INTEGER},
+            </if>
+            <if test="orsp_date != null" >
+                #{orsp_date,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orsp_code != null" >
+                #{orsp_code,jdbcType=VARCHAR},
+            </if>
+            <if test="orsp_tel != null" >
+                #{orsp_tel,jdbcType=VARCHAR},
+            </if>
+            <if test="orsp_status != null" >
+                #{orsp_status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="edu.wf.orsp.model.Orsp" >
+        update orsp
+        <set >
+            <if test="fk_orspSpot_id != null" >
+                fk_orspSpot_id = #{fk_orspSpot_id,jdbcType=INTEGER},
+            </if>
+            <if test="fk_orspClient_id != null" >
+                fk_orspClient_id = #{fk_orspClient_id,jdbcType=INTEGER},
+            </if>
+            <if test="orsp_money != null" >
+                orsp_money = #{orsp_money,jdbcType=INTEGER},
+            </if>
+            <if test="orsp_num != null" >
+                orsp_num = #{orsp_num,jdbcType=INTEGER},
+            </if>
+            <if test="orsp_child != null" >
+                orsp_child = #{orsp_child,jdbcType=INTEGER},
+            </if>
+            <if test="orsp_date != null" >
+                orsp_date = #{orsp_date,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orsp_code != null" >
+                orsp_code = #{orsp_code,jdbcType=VARCHAR},
+            </if>
+            <if test="orsp_tel != null" >
+                orsp_tel = #{orsp_tel,jdbcType=VARCHAR},
+            </if>
+            <if test="orsp_status != null" >
+                orsp_status = #{orsp_status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where orsp_id = #{orsp_id,jdbcType=INTEGER}
+    </update>
+    <select id="orspList" parameterType="map" resultMap="BaseResultMap">
+        select * from orsp <where>
+            <if test="orsp.orsp_code!=null and orsp.orsp_code!=''">
+                and orsp_code like concat('%',#{orsp.orsp_code},'%')
+            </if>
+            <if test="orsp.orsp_status!=null and orsp.orsp_status!=''">
+                and orsp_status=#{orsp.orsp_status}
+            </if>
+            <if test="orsp.fk_orspClient_id!=null and orsp.fk_orspClient_id!=''">
+                and fk_orspClient_id=#{orsp.fk_orspClient_id}
+            </if>
+        </where>
+         limit #{begins},#{num}
+    </select>
+    <select id="count" parameterType="map" resultType="integer">
+        select count(*) from orsp <where> 
+            <if test="orsp.orsp_code!=null and orsp.orsp_code!=''">
+                and orsp_code like concat('%',#{orsp.orsp_code},'%')
+            </if>
+            <if test="orsp.orsp_status!=null and orsp.orsp_status!=''">
+                and orsp_status=#{orsp.orsp_status}
+            </if>
+            <if test="orsp.fk_orspClient_id!=null and orsp.fk_orspClient_id!=''">
+                and fk_orspClient_id=#{orsp.fk_orspClient_id}
+            </if>
+        </where>
+    </select>
+    <select id="orspTotal" parameterType="string" resultType="map">
+       select substring(orsp_date,1,7) d,sum(orsp_money) money from orsp where orsp_date like concat(#{orsp_date},'%') group by d
+    </select>
+    
+</mapper>

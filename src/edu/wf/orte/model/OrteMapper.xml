@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.wf.orte.mapper.OrteMapper" >
+    <resultMap id="BaseResultMap" type="edu.wf.orte.model.Orte" >
+        <id column="orte_id" property="orte_id" jdbcType="INTEGER" />
+        <result column="fk_orteTeams_id" property="fk_orteTeams_id" jdbcType="INTEGER" />
+        <result column="fk_orteClient_id" property="fk_orteClient_id" jdbcType="INTEGER" />
+        <result column="orte_money" property="orte_money" jdbcType="INTEGER" />
+        <result column="orte_num" property="orte_num" jdbcType="INTEGER" />
+        <result column="orte_child" property="orte_child" jdbcType="INTEGER" />
+        <result column="orte_date" property="orte_date" jdbcType="TIMESTAMP" />
+        <result column="orte_code" property="orte_code" jdbcType="VARCHAR" />
+        <result column="orte_tel" property="orte_tel" jdbcType="VARCHAR" />
+        <result column="orte_status" property="orte_status" jdbcType="INTEGER" />
+        <association property="client" column="fk_orteClient_id" select="edu.wf.client.mapper.ClientMapper.load"></association>
+        <association property="teams" column="fk_orteTeams_id" select="edu.wf.teams.mapper.TeamsMapper.load"></association>
+    </resultMap>
+    <sql id="orte_columns" >
+        orte_id, fk_orteTeams_id, fk_orteClient_id, orte_money, orte_num, orte_child, orte_date, 
+        orte_code, orte_tel, orte_status
+    </sql>
+    <select id="load" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="orte_columns" />
+        from orte
+        where orte_id = #{orte_id,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer" >
+        delete from orte
+        where orte_id = #{orte_id,jdbcType=INTEGER}
+    </delete>
+    <insert id="add" parameterType="edu.wf.orte.model.Orte" >
+        insert into orte
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="orte_id != null" >
+                orte_id,
+            </if>
+            <if test="fk_orteTeams_id != null" >
+                fk_orteTeams_id,
+            </if>
+            <if test="fk_orteClient_id != null" >
+                fk_orteClient_id,
+            </if>
+            <if test="orte_money != null" >
+                orte_money,
+            </if>
+            <if test="orte_num != null" >
+                orte_num,
+            </if>
+            <if test="orte_child != null" >
+                orte_child,
+            </if>
+            <if test="orte_date != null" >
+                orte_date,
+            </if>
+            <if test="orte_code != null" >
+                orte_code,
+            </if>
+            <if test="orte_tel != null" >
+                orte_tel,
+            </if>
+            <if test="orte_status != null" >
+                orte_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="orte_id != null" >
+                #{orte_id,jdbcType=INTEGER},
+            </if>
+            <if test="fk_orteTeams_id != null" >
+                #{fk_orteTeams_id,jdbcType=INTEGER},
+            </if>
+            <if test="fk_orteClient_id != null" >
+                #{fk_orteClient_id,jdbcType=INTEGER},
+            </if>
+            <if test="orte_money != null" >
+                #{orte_money,jdbcType=INTEGER},
+            </if>
+            <if test="orte_num != null" >
+                #{orte_num,jdbcType=INTEGER},
+            </if>
+            <if test="orte_child != null" >
+                #{orte_child,jdbcType=INTEGER},
+            </if>
+            <if test="orte_date != null" >
+                #{orte_date,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orte_code != null" >
+                #{orte_code,jdbcType=VARCHAR},
+            </if>
+            <if test="orte_tel != null" >
+                #{orte_tel,jdbcType=VARCHAR},
+            </if>
+            <if test="orte_status != null" >
+                #{orte_status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="edu.wf.orte.model.Orte" >
+        update orte
+        <set >
+            <if test="fk_orteTeams_id != null" >
+                fk_orteTeams_id = #{fk_orteTeams_id,jdbcType=INTEGER},
+            </if>
+            <if test="fk_orteClient_id != null" >
+                fk_orteClient_id = #{fk_orteClient_id,jdbcType=INTEGER},
+            </if>
+            <if test="orte_money != null" >
+                orte_money = #{orte_money,jdbcType=INTEGER},
+            </if>
+            <if test="orte_num != null" >
+                orte_num = #{orte_num,jdbcType=INTEGER},
+            </if>
+            <if test="orte_child != null" >
+                orte_child = #{orte_child,jdbcType=INTEGER},
+            </if>
+            <if test="orte_date != null" >
+                orte_date = #{orte_date,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orte_code != null" >
+                orte_code = #{orte_code,jdbcType=VARCHAR},
+            </if>
+            <if test="orte_tel != null" >
+                orte_tel = #{orte_tel,jdbcType=VARCHAR},
+            </if>
+            <if test="orte_status != null" >
+                orte_status = #{orte_status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where orte_id = #{orte_id,jdbcType=INTEGER}
+    </update>
+   <select id="orteList" parameterType="map" resultMap="BaseResultMap">
+        select * from orte <where>
+            <if test="orte.orte_code!=null and orte.orte_code!=''">
+                and orte_code like concat('%',#{orte.orte_code},'%')
+            </if>
+            <if test="orte.orte_status!=null and orte.orte_status!=''">
+                and orte_status=#{orte.orte_status}
+            </if>
+            <if test="orte.fk_orteClient_id!=null and orte.fk_orteClient_id!=''">
+                and fk_orteClient_id=#{orte.fk_orteClient_id}
+            </if>
+        </where>
+         limit #{begins},#{num}
+    </select>
+    <select id="count" parameterType="map" resultType="integer">
+        select count(*) from orte <where> 
+            <if test="orte.orte_code!=null and orte.orte_code!=''">
+                and orte_code like concat('%',#{orte.orte_code},'%')
+            </if>
+            <if test="orte.orte_status!=null and orte.orte_status!=''">
+                and orte_status=#{orte.orte_status}
+            </if>
+            <if test="orte.fk_orteClient_id!=null and orte.fk_orteClient_id!=''">
+                and fk_orteClient_id=#{orte.fk_orteClient_id}
+            </if>
+        </where>
+    </select>
+    <select id="orteTotal" parameterType="string" resultType="map">
+       select substring(orte_date,1,7) d,sum(orte_money) money from orte where orte_date like concat(#{orte_date},'%') group by d
+    </select>
+</mapper>
